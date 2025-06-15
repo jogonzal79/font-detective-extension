@@ -1,0 +1,449 @@
+/* Highlight del elemento seleccionado */
+.font-detector-highlight {
+  outline: 2px solid #ff4444 !important;
+  outline-offset: 2px !important;
+  background-color: rgba(255, 68, 68, 0.1) !important;
+  box-shadow: 0 0 10px rgba(255, 68, 68, 0.3) !important;
+}
+
+/* Overlay principal */
+#font-detector-overlay {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border: 2px solid #333;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 2147483647; /* Máximo z-index */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  width: 350px;
+  max-height: 80vh;
+  overflow-y: auto;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  transition: all 0.2s ease;
+  user-select: none; /* Evitar selección de texto durante el arrastre */
+}
+
+/* Header del overlay - Área arrastrable */
+.overlay-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px 10px;
+  border-bottom: 1px solid #eee;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 10px 10px 0 0;
+  cursor: grab;
+  position: relative;
+}
+
+.overlay-header:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+.overlay-header:active {
+  cursor: grabbing;
+}
+
+/* Contenido del header */
+.header-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.overlay-header h3 {
+  margin: 0 0 2px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.drag-hint {
+  font-size: 10px;
+  opacity: 0.8;
+  font-style: italic;
+  transition: opacity 0.2s;
+}
+
+.overlay-header:hover .drag-hint {
+  opacity: 1;
+}
+
+/* Botón cerrar */
+#close-detector {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+#close-detector:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* Nueva sección de configuración */
+.overlay-config {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  background: #f8f9fa;
+}
+
+.mode-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Toggle switch personalizado */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-container input[type="checkbox"] {
+  display: none;
+}
+
+.toggle-slider {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: #ccc;
+  border-radius: 12px;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-container input:checked + .toggle-slider {
+  background: #2196F3;
+}
+
+.toggle-container input:checked + .toggle-slider::before {
+  transform: translateX(20px);
+}
+
+.toggle-label {
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.mode-description {
+  font-size: 11px;
+  color: #666;
+  font-style: italic;
+  margin-left: 56px;
+  line-height: 1.3;
+}
+
+/* Status bar para modo click */
+.click-status {
+  padding: 10px 20px;
+  background: #e3f2fd;
+  border-bottom: 1px solid #bbdefb;
+  font-size: 12px;
+  color: #1976d2;
+  display: none;
+  animation: slideDown 0.3s ease;
+}
+
+.click-status.locked {
+  background: #e8f5e8;
+  border-bottom-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+.status-text {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@keyframes slideDown {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 50px;
+    opacity: 1;
+  }
+}
+
+/* Contenido principal */
+#font-details {
+  padding: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.help-text {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Secciones de información */
+.font-section {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.font-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.font-section h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.font-section p {
+  margin: 8px 0;
+  color: #555;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.font-section strong {
+  color: #333;
+  min-width: 120px;
+  font-weight: 500;
+}
+
+/* Vista previa de color */
+.color-preview {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* Botones de acción */
+.overlay-actions {
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 10px;
+  background: #f9f9f9;
+  border-radius: 0 0 10px 10px;
+  flex-wrap: wrap;
+}
+
+.overlay-actions button {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+/* Botón de copiar CSS */
+#copy-css {
+  background: #4CAF50;
+  color: white;
+}
+
+#copy-css:hover:not(:disabled) {
+  background: #45a049;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+#copy-css:disabled {
+  background: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+/* Botón de copiar JSON */
+#copy-json {
+  background: #2196F3;
+  color: white;
+}
+
+#copy-json:hover:not(:disabled) {
+  background: #1976D2;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+}
+
+#copy-json:disabled {
+  background: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+/* Botón de desbloquear */
+#unlock-info {
+  background: #FF9800;
+  color: white;
+  flex-basis: 100%;
+  margin-top: 5px;
+}
+
+#unlock-info:hover {
+  background: #F57C00;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+}
+
+/* Notificaciones */
+.font-detector-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  background: #333;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 2147483648;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.font-detector-notification.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.font-detector-notification.success {
+  background: #4CAF50;
+}
+
+.font-detector-notification.error {
+  background: #f44336;
+}
+
+.notification-icon {
+  font-size: 16px;
+}
+
+.notification-text {
+  font-weight: 500;
+}
+
+/* Scrollbar personalizada para el overlay */
+#font-detector-overlay::-webkit-scrollbar {
+  width: 6px;
+}
+
+#font-detector-overlay::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+#font-detector-overlay::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+#font-detector-overlay::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+  #font-detector-overlay {
+    width: 320px;
+    max-width: calc(100vw - 40px);
+    left: 20px;
+    right: 20px;
+    top: 20px;
+  }
+  
+  .overlay-actions {
+    flex-direction: column;
+  }
+  
+  .overlay-actions button {
+    flex: none;
+    width: 100%;
+  }
+  
+  #unlock-info {
+    flex-basis: auto;
+    margin-top: 0;
+  }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Estilos para cuando el overlay está siendo arrastrado */
+#font-detector-overlay.dragging {
+  transition: none !important;
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Estilos para el cursor durante el arrastre */
+body.dragging-overlay {
+  cursor: grabbing !important;
+}

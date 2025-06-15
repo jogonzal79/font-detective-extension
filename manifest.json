@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Font Detective",
+  "version": "1.1",
+  "description": "Identifica y analiza fuentes en páginas web con información detallada",
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Font Detective - Analizar fuentes"
+  },
+  "icons": {
+    "16": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIgNEgxNFYxMkgyVjRaIiBzdHJva2U9IiMzMzMiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSIjZmZmIi8+CjxwYXRoIGQ9Ik00IDdIMTJWOUg0VjdaIiBmaWxsPSIjMzMzIi8+CjxjaXJjbGUgY3g9IjEzIiBjeT0iMyIgcj0iMiIgZmlsbD0iI2ZmNDQ0NCIvPgo8L3N2Zz4=",
+    "32": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQgOEgyOFYyNEg0VjhaIiBzdHJva2U9IiMzMzMiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNOCAxNEgyNFYxOEg4VjE0WiIgZmlsbD0iIzMzMyIvPgo8Y2lyY2xlIGN4PSIyNiIgY3k9IjYiIHI9IjQiIGZpbGw9IiNmZjQ0NDQiLz4KPC9zdmc+",
+    "48": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTYgMTJINDJWMzZINlYxMloiIHN0cm9rZT0iIzMzMyIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSIjZmZmIi8+CjxwYXRoIGQ9Ik0xMiAyMUgzNlYyN0gxMlYyMVoiIGZpbGw9IiMzMzMiLz4KPGNpcmNsZSBjeD0iMzkiIGN5PSI5IiByPSI2IiBmaWxsPSIjZmY0NDQ0Ii8+Cjwvc3ZnPg==",
+    "128": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xNiAzMkgxMTJWOTZIMTZWMzJaIiBzdHJva2U9IiMzMzMiIHN0cm9rZS13aWR0aD0iNCIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNMzIgNTZIOTZWNzJIMzJWNTZaIiBmaWxsPSIjMzMzIi8+CjxjaXJjbGUgY3g9IjEwNCIgY3k9IjI0IiByPSIxNiIgZmlsbD0iI2ZmNDQ0NCIvPgo8L3N2Zz4="
+  }
+}
